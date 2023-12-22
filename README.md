@@ -1,4 +1,4 @@
-# MongoCRUD
+# Auth-Contact Manager API
 
 ## Contact Manager API with User Authentication
 
