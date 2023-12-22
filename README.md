@@ -1,6 +1,6 @@
 # MongoCRUD
 
-## Overview
+## Contact Manager API with User Authentication
 
 This project is an API for managing contacts. It includes CRUD (Create, Read, Update, Delete) operations for contact management.
 
