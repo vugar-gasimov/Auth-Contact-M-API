@@ -106,6 +106,8 @@ Content-Type: application/json
 - `express`: Web server framework for Node.js.
 - `mongoose`: MongoDB object modeling for Node.js.
 - `joi`: Schema validation library.
+- `jsonwebtoken`: For JWT token generation and validation.
+- `bcryptjs`: Library for password hashing.
 
 ### Contributing
 
