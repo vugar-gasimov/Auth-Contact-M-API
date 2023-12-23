@@ -1,7 +1,7 @@
-const CustomError = (status, message) => {
-  const error = new Error(message);
-  error.status = status;
-  return error;
+const createError = require("http-errors");
+
+const CustomError = (status, message = undefined) => {
+  return createError(status, message);
 };
 
 module.exports = CustomError;
