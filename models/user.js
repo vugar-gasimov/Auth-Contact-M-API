@@ -8,17 +8,27 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Name is required"],
     },
     email: {
       type: String,
       match: mailFormat,
-      required: true,
+      unique: true,
+      required: [true, "Email address is required"],
     },
     password: {
       type: String,
       minlength: 6,
-      required: true,
+      required: [true, "Password is required and min length is 6 symbols"],
+    },
+    subscription: {
+      type: String,
+      enum: ["starter", "pro", "business"],
+      default: "starter",
+    },
+    token: {
+      type: String,
+      default: null,
     },
   },
   { versionKey: false, timestamps: true }
