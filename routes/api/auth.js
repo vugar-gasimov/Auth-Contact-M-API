@@ -9,4 +9,9 @@ router.post("/signup", validateBody(schemas.signupSchema), ctrl.signup);
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 router.get("/current", authenticator, ctrl.getCurrent);
 router.post("/logout", authenticator, ctrl.logout);
+router.post(
+  "/updateUserSubscription",
+  authenticator,
+  ctrl.updateUserSubscription
+);
 module.exports = router;

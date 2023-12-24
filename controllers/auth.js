@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/user");
 const { CustomError, ctrlWrapper } = require("../helpers");
 const { SECRET_KEY } = process.env;
+
 const signup = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -68,9 +69,37 @@ const logout = async (req, res) => {
   }
 };
 
+const updateUserSubscription = async (req, res) => {
+  try {
+    const { _id: userId } = req.user;
+    const { subscription: newSubscription } = req.body;
+    const validSubscriptions = ["starter", "pro", "business"];
+    if (!validSubscriptions.includes(newSubscription)) {
+      return res.status(400).json({ message: "Invalid subscription type" });
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { subscription: newSubscription },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const { name, email, subscription, token, updatedAt } = updatedUser;
+    res
+      .status(200)
+      .json({ user: { name, email, subscription, token, updatedAt } });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to update subscription", error: error.message });
+  }
+};
+
 module.exports = {
   signup: ctrlWrapper(signup),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
+  updateUserSubscription: ctrlWrapper(updateUserSubscription),
 };
