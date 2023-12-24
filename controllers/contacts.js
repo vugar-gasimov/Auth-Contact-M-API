@@ -3,7 +3,12 @@ const { CustomError, ctrlWrapper } = require("../helpers");
 
 const getAllContacts = async (req, res) => {
   const { _id: owner } = req.user;
-  const result = await Contact.find({ owner }, "-createdAt -updatedAt -__v");
+  const { page = 1, limit = 11 } = req.query;
+  const skip = (page - 1) * limit;
+  const result = await Contact.find({ owner }, "-createdAt -updatedAt -__v", {
+    skip,
+    limit,
+  }).populate("owner", "name");
   res.json(result);
 };
 
